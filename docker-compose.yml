@@ -10,7 +10,7 @@ services:
             - ACCEPT_EULA=Y
         volumes:
             - ./mssql/script:/usr/src/app
-        command: sh -c ' chmod +x /usr/src/app/entrypoint.sh; /usr/src/app/entrypoint.sh & /opt/mssql/bin/sqlservr;'
+        command: ["sh","-c","chmod +x /usr/src/app/entrypoint.sh; /usr/src/app/entrypoint.sh & /opt/mssql/bin/sqlservr;"]
         healthcheck:
             test: [ "CMD", "sqlcmd", "-U", "sa", "-P", "Password1234", "-Q", "select 1" ]
             interval: 5s
