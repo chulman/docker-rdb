@@ -43,7 +43,7 @@ services:
             - TZ=Asia/Seoul
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=mysql
-            - MYSQL_PASSWORD=mtsql
+            - MYSQL_PASSWORD=mysql
             - MYSQL_DATABASE=sample
         ports:
             - "3306:3306"
