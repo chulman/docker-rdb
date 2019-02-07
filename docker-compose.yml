@@ -10,7 +10,7 @@ services:
             - ACCEPT_EULA=Y
         volumes:
             - ./mssql/script:/usr/src/app
-        command: ["sh","-c","chmod +x /usr/src/app/entrypoint.sh; /usr/src/app/entrypoint.sh & /opt/mssql/bin/sqlservr;"]
+        command: ["sh","-c","chmod +x /usr/src/app/entrypoint.sh; /usr/src/app/entrypoint.sh & /opt/mssql/bin/sqlserver;"]
         healthcheck:
             test: [ "CMD", "sqlcmd", "-U", "sa", "-P", "Password1234", "-Q", "select 1" ]
             interval: 5s
@@ -41,6 +41,7 @@ services:
         command: --lower_case_table_names=1
         environment:
             - TZ=Asia/Seoul
+            - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=mysql
             - MYSQL_PASSWORD=mtsql
             - MYSQL_DATABASE=sample
@@ -49,7 +50,7 @@ services:
         volumes:
             - ./mysql/script/init.sql:/docker-entrypoint-initdb.d/init.sql
         healthcheck:
-            test: ["CMD-SHELL", 'mysqladmin ping']
+            test: ["CMD", "mysqladmin", "-uroot", "-proot",  "ping", "-h", "localhost"]
             interval: 10s
             timeout: 2s
             retries: 5 
